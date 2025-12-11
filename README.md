@@ -23,20 +23,10 @@ If you're dealing with small to medium-sized projects and just need a quick, rel
 
 ## 🛠️ How to Use It (It's ridiculously simple)
 
-### 1\. Save the script
-
-Save the Python code above as `mkmake.py`.
-
-### 2\. Run it\!
-
-The script expects the **target executable name** first, followed by the **list of your source files (without the .c extension)**.
-
-#### Basic Usage
-
 Generate the `Makefile` and stop.
 
 ```bash
-$ python3 mkmake.py <EXEC_NAME> <FILE1> <FILE2> ...
+$ python3 app.py <EXEC_NAME> <FILE1> <FILE2> ...
 ```
 
   * **Example:**
@@ -44,7 +34,7 @@ $ python3 mkmake.py <EXEC_NAME> <FILE1> <FILE2> ...
 <!-- end list -->
 
 ```bash
-$ python3 mkmake.py my_program main helper utils
+$ python3 app.py my_program main helper utils
 ```
 
 This will create a `Makefile` containing:
@@ -59,7 +49,7 @@ my_program: main.c helper.c utils.c
 Generate the `Makefile` **AND** immediately run the `make` command to compile your project. **Instant gratification\!** 🥳
 
 ```bash
-$ python3 mkmake.py <EXEC_NAME> <FILE1> <FILE2> ... -make
+$ python3 app.py <EXEC_NAME> <FILE1> <FILE2> ... -make
 ```
 
   * **Example:**
@@ -67,7 +57,7 @@ $ python3 mkmake.py <EXEC_NAME> <FILE1> <FILE2> ... -make
 <!-- end list -->
 
 ```bash
-$ python3 mkmake.py my_app server client -make
+$ python3 app.py my_app server client -make
 ```
 
 *(The `-make` flag is ignored when creating the file list but triggers the execution.)*
@@ -84,7 +74,7 @@ def main():
     av = sys.argv
     ac = len(av)
     if ac < 3:
-        print("Missing args: Usage: python3 mkmake.py <EXEC_NAME> <FILE1> <FILE2> ... [-make]")
+        print("Missing args: Usage: python3 app.py <EXEC_NAME> <FILE1> <FILE2> ... [-make]")
         return
     
     # Filter files from flags like -make
