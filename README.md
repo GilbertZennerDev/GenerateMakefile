@@ -109,6 +109,10 @@ if __name__ == "__main__":
     main()
 ```
 
+⚙️ The Engine Under the Hood (C++ Power)
+
+For maximum performance and system independence, this utility is compiled natively from C++! Unlike scripts that rely on external interpreters, GenerateMakefile executes external commands (make) using direct Unix system calls (fork(), execvp(), and wait()). This guarantees instantaneous, reliable execution and proper process synchronization. By using native code, you get a lightweight, blazing-fast utility that works straight out of the box on any Unix-like system, making your compilation process rock-solid and dependency-free.
+
 ## 🙏 Contribution
 
 Got ideas for more default targets (like `clean`)? Find a bug? Pull requests are welcome\! Let's make this tool even better\! 💖
