@@ -1,22 +1,50 @@
 """
 compiled: main.c helper.c
 	cc main.c helper.c -o compiled
+
+clean: *.o
+	echo "Clean called\n"
+	rm *.o
+
+fclean: compiled
+	echo "FClean called\n"
+	rm compiled
+
+re: compiled main.c helper.c
+	rm compiled
+	cc main.c helper.c -o compiled
+	echo "Re called\n"
 """
 
 import sys
 import subprocess as sp
 
+def clean():
+	return [
+	"clean: *.o",
+	"\techo \"Clean called\"",
+	"\trm *.o"
+	]
+	
+def fclean(compiled_name):
+	return [
+	"fclean: compiled",
+	"\techo \"FClean called\""
+	f"\trm {compiled_name}"
+	]
+
 def	main():
 	av = sys.argv
 	ac = len(av)
-	if ac < 3: print("Missing args"); return
-	file_names = [s for s in av[2:] if s[0] != '-']
+	if ac < 4: print("Missing args"); return
+	file_names = [s for s in av[3:] if s[0] != '-']
 	compiled_name = av[1]
-	req_files = ".c ".join(file_names) + ".c"
-	comp_line = "\tcc " + ".c ".join(file_names) + ".c -o " + compiled_name
+	ftype = "." + av[2]
+	req_files = f"{ftype} ".join(file_names) + ftype
+	comp_line = "\tcc " + f"{ftype} ".join(file_names) + f"{ftype} -o " + compiled_name
 	line1 = compiled_name + ": " + req_files
 	line2 = comp_line
-	final = line1 + "\n" + line2
+	final = line1 + "\n" + line2 + "\n" + "\n".join(clean()) + "\n" + "\n".join(fclean(compiled_name))
 	print("Makefile written")
 	open("Makefile", "w").write(final)
 	print(final)
