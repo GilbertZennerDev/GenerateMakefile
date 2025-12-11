@@ -29,8 +29,15 @@ def clean():
 def fclean(compiled_name):
 	return [
 	"fclean: compiled",
-	"\techo \"FClean called\""
+	"\techo \"FClean called\"",
 	f"\trm {compiled_name}"
+	]
+
+def re(comp_line):
+	return [
+	"re: fclean",
+	"\techo \"Re called\"",
+	f"{comp_line}"
 	]
 
 def	main():
@@ -44,7 +51,7 @@ def	main():
 	comp_line = "\tcc " + f"{ftype} ".join(file_names) + f"{ftype} -o " + compiled_name
 	line1 = compiled_name + ": " + req_files
 	line2 = comp_line
-	final = line1 + "\n" + line2 + "\n" + "\n".join(clean()) + "\n" + "\n".join(fclean(compiled_name))
+	final = line1 + "\n" + line2 + "\n" + "\n".join(clean()) + "\n" + "\n".join(fclean(compiled_name)) + "\n" + "\n".join(re(comp_line))
 	print("Makefile written")
 	open("Makefile", "w").write(final)
 	print(final)
