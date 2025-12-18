@@ -2,21 +2,19 @@
 
 void	runMakefile()
 {
-	pid_t	pid;
-	char	**cmds;
+	pid_t		pid;
+	vector<char *>	cmds;
+	char		**cmds_c;
 
-	cmds = (char **)malloc(sizeof(char *) * 2);
-	cmds[0] = strdup("make");
-	cmds[1] = NULL;
+	cmds.push_back((char *) string("make").c_str());
+	cmds.push_back(NULL);
+	cmds_c = &cmds[0];
 	pid = fork();
 	if (pid == 0)
-		execvp(cmds[0], cmds);
+		execvp(cmds_c[0], cmds_c);
 	else
 	{
 		wait(NULL);
-		free(cmds[0]);
-		free(cmds[1]);
-		free(cmds);
 		cout << "make run...\n";
 	}
 }
@@ -28,7 +26,7 @@ string getCompName(char **av)
 	return string("cc");
 }
 
-void	genLine1(t_data *d)
+void	genLines(t_data *d)
 {
 	d->comp_line = "\t" + d->comp_name + " " + d->req_files + "-o " + d->compiled_name;
 	d->final_ = d->compiled_name + ": " + d->req_files + "\n" + d->comp_line;
@@ -65,7 +63,7 @@ int main(int ac, char **av)
 	for(int i = 0; i < d.file_names.size(); i++)
 		d.req_files += d.file_names[i] + "." + d.ftype + " ";
 	
-	genLine1(&d);
+	genLines(&d);
 	genMakefile(d.final_);
 	return (0);
 }

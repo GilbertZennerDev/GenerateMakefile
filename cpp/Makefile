@@ -1,2 +1,2 @@
-compiled: main.c helper.c 
-	cc main.c helper.c -o compiled
+GMF: main.cpp 
+	c++ main.cpp -o GMF
